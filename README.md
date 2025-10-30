@@ -10,26 +10,33 @@ CrisisVision uses AI agents to analyze emergency situations, determine false ala
 
 ### 1. Main Page
 ![Main Page](screenshots/01-main-page.png)
+
 *Landing page with scenario selection*
 
 ### 2-4. False Alarm Scenario
 ![False Alarm Start](screenshots/02-false-alarm-start.png)
+
 *User reports smoke detector - system begins analysis*
 
 ![False Alarm Analysis](screenshots/03-false-alarm-analysis.png)
+
 *AI agents gather intelligence from multiple sources*
 
 ![False Alarm Result](screenshots/04-false-alarm-result.png)
+
 *System determines it's a false alarm with evidence and provides reassurance*
 
 ### 5-7. Real Emergency Scenario
 ![Emergency Evacuation Step 1](screenshots/05-false-alarm-complete.png)
+
 *Active emergency detected - showing evacuation route step 1*
 
 ![Emergency Analysis](screenshots/06-emergency-analysis.png)
+
 *System detects real wildfire threat and analyzes situation*
 
 ![Emergency Evacuation Complete](screenshots/07-emergency-evacuation.png)
+
 *Complete 5-step evacuation plan with GPS coordinates and shelter information*
 
 ## Architecture
@@ -37,6 +44,7 @@ CrisisVision uses AI agents to analyze emergency situations, determine false ala
 CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 
 ![CrisisVision Architecture](screenshots/architecture-diagram.png)
+
 *Three-stage AI workflow: Tool Selection → Emergency Classification → Response Generation*
 
 ### Architecture Flow
