@@ -1,0 +1,101 @@
+version: '3.8'
+
+services:
+  orchestrator:
+    build: ./orchestrator
+    container_name: crisisvision-orchestrator
+    ports:
+      - "${ORCHESTRATOR_PORT:-8000}:8000"
+    environment:
+      - NVIDIA_API_KEY=${NVIDIA_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-nvidia/nemotron-4-340b-instruct}
+      - LLM_TEMPERATURE=${LLM_TEMPERATURE:-0.2}
+      - LLM_MAX_TOKENS=${LLM_MAX_TOKENS:-2000}
+      - WEATHER_SERVICE_URL=http://weather:8001
+      - MAPS_SERVICE_URL=http://maps:8002
+      - NEWS_SERVICE_URL=http://news:8003
+      - SOCIAL_SERVICE_URL=http://social:8004
+      - RESOURCE_SERVICE_URL=http://resource:8005
+    depends_on:
+      - weather
+      - maps
+      - news
+      - social
+      - resource
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+
+  weather:
+    build: ./mcp_servers/weather
+    container_name: crisisvision-weather
+    ports:
+      - "${WEATHER_PORT:-8001}:8001"
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  maps:
+    build: ./mcp_servers/maps
+    container_name: crisisvision-maps
+    ports:
+      - "${MAPS_PORT:-8002}:8002"
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  news:
+    build: ./mcp_servers/news
+    container_name: crisisvision-news
+    ports:
+      - "${NEWS_PORT:-8003}:8003"
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  social:
+    build: ./mcp_servers/social
+    container_name: crisisvision-social
+    ports:
+      - "${SOCIAL_PORT:-8004}:8004"
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  resource:
+    build: ./mcp_servers/resource
+    container_name: crisisvision-resource
+    ports:
+      - "${RESOURCE_PORT:-8005}:8005"
+    networks:
+      - crisisvision-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+networks:
+  crisisvision-network:
+    driver: bridge
