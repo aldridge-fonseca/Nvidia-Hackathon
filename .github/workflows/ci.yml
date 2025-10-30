@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  frontend:
+    name: Frontend build (Next.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: demo-ui
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: demo-ui/package-lock.json
+      - name: Install
+        run: npm ci --no-audit --fund=false
+      - name: Build
+        run: npm run build
+
+  backend:
+    name: Backend docker build (compose)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build all services
+        run: |
+          docker compose version
+          docker compose -f docker-compose.yml build

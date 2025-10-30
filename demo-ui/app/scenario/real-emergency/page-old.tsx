@@ -1,3 +1,4 @@
+// Legacy demo page: kept for reference; not linked from main flows.
 'use client';
 
 import { useState, useEffect } from 'react';

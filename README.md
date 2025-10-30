@@ -1,5 +1,7 @@
 # CrisisVision
 
+[![CI](https://github.com/aldridge-fonseca/Nvidia-Hackathon/actions/workflows/ci.yml/badge.svg)](https://github.com/aldridge-fonseca/Nvidia-Hackathon/actions/workflows/ci.yml)
+
 Multi-agent emergency response system powered by NVIDIA NIM for intelligent crisis management and evacuation coordination.
 
 ## Overview
@@ -9,35 +11,38 @@ CrisisVision uses AI agents to analyze emergency situations, determine false ala
 ## Screenshots
 
 ### 1. Main Page
+
 ![Main Page](screenshots/01-main-page.png)
 
-*Landing page with scenario selection*
+Landing page with scenario selection
 
 ### 2-4. False Alarm Scenario
+
 ![False Alarm Start](screenshots/02-false-alarm-start.png)
 
-*User reports smoke detector - system begins analysis*
+User reports smoke detector - system begins analysis
 
 ![False Alarm Analysis](screenshots/03-false-alarm-analysis.png)
 
-*AI agents gather intelligence from multiple sources*
+AI agents gather intelligence from multiple sources
 
 ![False Alarm Result](screenshots/04-false-alarm-result.png)
 
-*System determines it's a false alarm with evidence and provides reassurance*
+System determines it's a false alarm with evidence and provides reassurance
 
 ### 5-7. Real Emergency Scenario
+
 ![Emergency Evacuation Step 1](screenshots/05-false-alarm-complete.png)
 
-*Active emergency detected - showing evacuation route step 1*
+Active emergency detected - showing evacuation route step 1
 
 ![Emergency Analysis](screenshots/06-emergency-analysis.png)
 
-*System detects real wildfire threat and analyzes situation*
+System detects real wildfire threat and analyzes situation
 
 ![Emergency Evacuation Complete](screenshots/07-emergency-evacuation.png)
 
-*Complete 5-step evacuation plan with GPS coordinates and shelter information*
+Complete 5-step evacuation plan with GPS coordinates and shelter information
 
 ## Architecture
 
@@ -45,7 +50,7 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 
 ![CrisisVision Architecture](screenshots/architecture-diagram.png)
 
-*Three-stage AI workflow: Tool Selection → Emergency Classification → Response Generation*
+Three-stage AI workflow: Tool Selection → Emergency Classification → Response Generation
 
 ### Architecture Flow
 
@@ -54,8 +59,9 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 3️⃣ **Data Collection** - Selected tools gather real-time intelligence  
 4️⃣ **Agent 2: Emergency Classifier** - NVIDIA Nemotron Mini analyzes data and classifies: Emergency or False Alarm  
 5️⃣ **Agent 3: Response Generator** - NVIDIA Nemotron Super generates appropriate response:
-   - **False Alarm Path**: Safe assessment with confidence score and suggested actions
-   - **Emergency Path**: 5-step evacuation plan with GPS coordinates and shelter info  
+
+- **False Alarm Path**: Safe assessment with confidence score and suggested actions
+- **Emergency Path**: 5-step evacuation plan with GPS coordinates and shelter info  
 6️⃣ **Display Results** - User receives clear, actionable guidance
 
 ### Architecture Benefits
@@ -80,6 +86,7 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 ## Tech Stack
 
 ### Backend
+
 - **Python 3.11** with FastAPI
 - **NVIDIA NIM API** for LLM intelligence
 - **Docker Compose** for containerization
@@ -87,6 +94,7 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 - **Async/await** for parallel processing
 
 ### Frontend
+
 - **Next.js 14** with TypeScript
 - **Tailwind CSS** for styling
 - **Framer Motion** for animations
@@ -95,6 +103,7 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 ## Quick Start
 
 ### Prerequisites
+
 - Docker and Docker Compose
 - Node.js 18+ (for demo UI)
 - NVIDIA NIM API key ([Get one here](https://build.nvidia.com/))
@@ -102,21 +111,25 @@ CrisisVision uses a **three-agent AI architecture** powered by NVIDIA NIM:
 ### Backend Setup
 
 1. Navigate to backend folder:
+
 ```bash
 cd backend
 ```
 
-2. Create `.env` file:
+1. Create `.env` file:
+
 ```bash
 cp .env.example .env
 ```
 
-3. Add your NVIDIA API key to `.env`:
-```
+1. Add your NVIDIA API key to `.env`:
+
+```bash
 NVIDIA_API_KEY=your_key_here
 ```
 
-4. Start services:
+1. Start services:
+
 ```bash
 # Windows
 .\start.ps1
@@ -130,16 +143,19 @@ Backend runs at `http://localhost:8000`
 ### Frontend Setup
 
 1. Navigate to demo-ui folder:
+
 ```bash
 cd demo-ui
 ```
 
-2. Install dependencies:
+1. Install dependencies:
+
 ```bash
 npm install
 ```
 
-3. Start development server:
+1. Start development server:
+
 ```bash
 npm run dev
 ```
@@ -149,12 +165,14 @@ Frontend runs at `http://localhost:3000`
 ## API Documentation
 
 Once the backend is running, visit:
-- **Swagger UI**: http://localhost:8000/docs
-- **ReDoc**: http://localhost:8000/redoc
+
+- **Swagger UI**: <http://localhost:8000/docs>
+- **ReDoc**: <http://localhost:8000/redoc>
 
 ### Key Endpoints
 
-**POST /analyze**
+POST /analyze
+
 ```json
 {
   "scenario": "fire",
@@ -163,7 +181,8 @@ Once the backend is running, visit:
 }
 ```
 
-**Response**:
+Response
+
 ```json
 {
   "is_real_emergency": false,
@@ -173,19 +192,19 @@ Once the backend is running, visit:
 }
 ```
 
-**POST /evacuate**
+POST /evacuate
+
 ```json
 {
   "emergency_type": "fire",
   "location": "San Francisco, CA",
   "user_input": "Wildfire approaching neighborhood"
 }
-```
 
 ## Project Structure
 
-```
-nvidia-crisisvision/
+```text
+Nvidia-Hackathon/
 ├── backend/
 │   ├── orchestrator/           # Main coordination service
 │   │   ├── main.py            # FastAPI app
@@ -201,8 +220,7 @@ nvidia-crisisvision/
 │   └── README.md              # Backend documentation
 ├── demo-ui/                   # Next.js frontend
 │   ├── app/                   # App router pages
-│   ├── components/            # React components
-│   └── lib/                   # API utilities
+│   └── components/            # React components
 ├── screenshots/               # Application screenshots
 └── README.md                  # This file
 ```
@@ -210,6 +228,7 @@ nvidia-crisisvision/
 ## Testing
 
 ### Backend Tests
+
 ```bash
 cd backend
 
@@ -227,7 +246,9 @@ curl http://localhost:8005/resources?emergency_type=fire
 ```
 
 ### Frontend Tests
-Open http://localhost:3000 and test both scenarios:
+
+Open <http://localhost:3000> and test both scenarios:
+
 1. False alarm (smoke detector)
 2. Real emergency (wildfire)
 
@@ -252,6 +273,7 @@ Open http://localhost:3000 and test both scenarios:
 ### Agent Configuration
 
 Each agent can be customized by editing its `server.py` file:
+
 - Mock data for different emergency types
 - Response formats
 - Health check endpoints

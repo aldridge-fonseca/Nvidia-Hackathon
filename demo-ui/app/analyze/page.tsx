@@ -96,7 +96,8 @@ export default function AnalyzePage() {
       // Determine emergency type from query
       const emergencyType = detectEmergencyType(userQuery);
 
-      const response = await fetch('http://localhost:8000/analyze', {
+  const apiBase = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+  const response = await fetch(`${apiBase}/analyze`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

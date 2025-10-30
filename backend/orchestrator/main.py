@@ -207,7 +207,8 @@ async def analyze_situation(request: AnalysisRequest) -> dict:
     )
     
     # Use a small, fast model for quick decision
-    decision_model = os.getenv("DECISION_MODEL", "nvidia/llama-3.2-nv-embedqa-1b-v2")
+    # Prefer a small INSTRUCT chat model for fast triage
+    decision_model = os.getenv("DECISION_MODEL", "nvidia/nemotron-mini-4b-instruct")
     decision_response = call_nvidia_llm(
         DECISION_SYSTEM_PROMPT, 
         decision_prompt,
@@ -250,7 +251,8 @@ async def analyze_situation(request: AnalysisRequest) -> dict:
         )
     
     # Use a large, powerful model for detailed response
-    response_model = os.getenv("RESPONSE_MODEL", "meta/llama-3.1-70b-instruct")
+    # Default to a strong instruct model for detailed responses
+    response_model = os.getenv("RESPONSE_MODEL", "nvidia/nemotron-4-340b-instruct")
     llm_response_text = call_nvidia_llm(system_prompt, user_prompt, model=response_model)
     
     result = parse_llm_response(llm_response_text)
